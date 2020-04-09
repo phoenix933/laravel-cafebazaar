@@ -18,7 +18,7 @@ Also <a href="http://developers.cafebazaar.ir/fa/docs/">Official Documents</a> a
 You can install the package via composer:
 
 ```bash
-composer require nikandlv/laravel-cafebazaar
+composer require hamedlaravel/laravel-cafebazaar
 ```
 
 You have to publish the configuration
