@@ -12,17 +12,16 @@ class LaravelCafebazaar {
     protected $data;
     protected $code;
     protected $guzzle;
-    
-    public function __construct() {
-        
-        if(empty($this->code)) {  
-            throw new Exception("Code not found. run php artisan Cafebazaar code");
-        }
 
+    public function __construct() {
         $this->guzzle = new \GuzzleHttp\Client(["base_uri" => "https://pardakht.cafebazaar.ir/devapi/v2/"]);
         $this->data = $this->getCache();
         $this->code = $this->getCode();
 
+        if(empty($this->code)) {
+            throw new Exception("Code not found. run php artisan Cafebazaar code");
+        }
+        
         if(empty($this->data)) {
             $this->updateToken();
         } else {
@@ -39,7 +38,7 @@ class LaravelCafebazaar {
                         'code' => $this->code,
                         "client_id" => config('laravel-cafebazaar.client_id'),
                         "client_secret" => config('laravel-cafebazaar.client_secret'),
-                        "redirect_uri" => config('laravel-cafebazaar.redirect_uri'),    
+                        "redirect_uri" => config('laravel-cafebazaar.redirect_uri'),
                    ],
                 ]);
                 $this->data = json_decode($response->getBody()->getContents());
@@ -70,7 +69,7 @@ class LaravelCafebazaar {
         } catch (RequestException $exception) {
             throw $exception;
         }
-    }    
+    }
 
     protected function getCache() {
         return Cache::get('laravel-cafebazaar');
@@ -83,7 +82,7 @@ class LaravelCafebazaar {
     protected function getCode() {
         return Cache::get('laravel-cafebazaar-code');
     }
-    
+
     public function verifyPurchase($package_id, $product_id, $purchase_token) {
         $this->updateToken();
         try {
@@ -96,9 +95,13 @@ class LaravelCafebazaar {
     }
 
     public static function handleRedirect(Request $request) {
-        $code = $request->input('code');
-        if(!empty($code)) {
+        $code = $request->code;
+        if($code != null) {
             Cache::forever('laravel-cafebazaar-code', $code);
+
+            return "Cached successful";
         }
+
+        return "Not cached";
     }
 }

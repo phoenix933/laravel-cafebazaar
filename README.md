@@ -37,7 +37,7 @@ Add a redirect route
 <?php
 // add a redirect route for example routes/api.php
 Route::get('/iap/redirect', function(Illuminate\Http\Request $request) {
-    Nikandlv\LaravelCafebazaar\LaravelCafebazaar::handleRedirect($request);
+    return \Nikandlv\LaravelCafebazaar\LaravelCafebazaar::handleRedirect($request);
 });
 
 ```
