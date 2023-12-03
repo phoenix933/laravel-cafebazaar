@@ -84,11 +84,11 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
 
-If you discover any security related issues, please email nikandalvand@gmail.com instead of using the issue tracker.
+If you discover any security related issues, please email midashand44@gmail.com instead of using the issue tracker.
 
 ## Credits
 
-- [Nikan Dalvand](https://github.com/nikandlv)
+- [crashdev226](https://github.com/crashdev226)
 
 ## License
 
